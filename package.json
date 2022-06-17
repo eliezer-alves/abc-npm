@@ -1,5 +1,5 @@
 {
-  "name": "abc-npm",
+  "name": "@eliezeralves/abc-npm",
   "version": "1.0.0",
   "description": "my first npm package",
   "main": "src/index.js",
@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/eliezer-alves/abc-npm/issues"
   },
-  "homepage": "https://github.com/eliezer-alves/abc-npm#readme"
+  "homepage": "https://github.com/eliezer-alves/abc-npm#readme",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
+    "eslint": "^8.17.0"
+  }
 }
