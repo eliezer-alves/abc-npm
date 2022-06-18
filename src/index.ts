@@ -1,7 +1,5 @@
-const linguagens = require('./linguagens-de-programacao.json')
+import linguagens from './linguagens-de-programacao.json'
 
 module.exports = {
-  all: linguagens
+  all: linguagens,
 }
-
-console.log(linguagens)
