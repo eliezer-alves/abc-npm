@@ -1,6 +1,6 @@
 {
   "name": "@eliezeralves/abc-npm",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "my first npm package",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
