@@ -11,7 +11,9 @@
   ],
   "rules": {
     "no-console": "warn",
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "@typescript-eslint/consistent-type-definitions": "off",
+    "@typescript-eslint/strict-boolean-expressions": "off"
   },
   "globals": {
     "process": true
