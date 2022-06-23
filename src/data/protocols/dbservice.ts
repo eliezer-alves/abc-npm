@@ -1,3 +1,8 @@
+export type DBServiceParams = {
+  ref: string
+  body: object
+}
+
 export interface DBService {
-  create(params: any, ref: string): Promise<void>
+  create(params: DBServiceParams): Promise<void>
 }

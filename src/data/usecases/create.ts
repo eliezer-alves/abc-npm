@@ -1,3 +1,4 @@
+import { CreateParams } from '@/domain/usecases/create'
 import { DBService } from '../protocols'
 
 export class Create {
@@ -6,8 +7,11 @@ export class Create {
     private readonly dbService: DBService,
   ) {}
 
-  exec(params: any): Promise<void> {
-    this.dbService.create(params, this.ref)
+  exec(params: CreateParams): Promise<void> {
+    this.dbService.create({
+      ref: this.ref,
+      body: params,
+    })
     return Promise.resolve()
   }
 }
