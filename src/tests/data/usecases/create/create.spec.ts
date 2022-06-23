@@ -1,7 +1,7 @@
-import { Create } from '@/data/usecases/create'
+import { Create } from '@/data/usecases'
 import { DBServiceSpy } from '../../mocks'
 import { faker } from '@faker-js/faker'
-import { mockNewEntityParams } from '@/tests/domain/mocks/mock-create'
+import { mockNewEntityParams } from '@/tests/domain/mocks'
 
 type SutTypes = {
   sut: Create
@@ -28,4 +28,6 @@ describe('Create', () => {
     expect(dbService.ref).toBe(ref)
     expect(dbService.body).toEqual(params)
   })
+
+  it.todo('Should call the callback function in method exec correctly')
 })

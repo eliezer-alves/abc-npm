@@ -1,4 +1,4 @@
-import { CreateParams } from '@/domain/usecases/create'
+import { CreateParams } from '@/domain/usecases'
 import { faker } from '@faker-js/faker'
 
 export const mockNewEntityParams = (): CreateParams => ({

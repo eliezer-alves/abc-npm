@@ -2,7 +2,7 @@ import { DBService, DBServiceParams } from '@/data/protocols'
 
 export class DBServiceSpy implements DBService {
   ref?: string
-  body?: any
+  body?: object
 
   create(data: DBServiceParams): Promise<void> {
     this.ref = data.ref

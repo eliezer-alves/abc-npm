@@ -1,4 +1,4 @@
-import { CreateParams } from '@/domain/usecases/create'
+import { CreateParams } from '@/domain/usecases'
 import { DBService } from '../protocols'
 
 export class Create {
