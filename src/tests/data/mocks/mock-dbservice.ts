@@ -1,9 +1,12 @@
-import { DBService } from '@/data/protocols'
+import { DBService, DBServiceParams } from '@/data/protocols'
 
 export class DBServiceSpy implements DBService {
   ref?: string
-  create(params: any, ref: string): Promise<void> {
-    this.ref = ref
+  body?: any
+
+  create(data: DBServiceParams): Promise<void> {
+    this.ref = data.ref
+    this.body = data.body
     return Promise.resolve()
   }
 }

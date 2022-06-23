@@ -1,6 +1,7 @@
 import { Create } from '@/data/usecases/create'
 import { DBServiceSpy } from '../../mocks'
 import { faker } from '@faker-js/faker'
+import { mockNewEntityParams } from '@/tests/domain/mocks/mock-create'
 
 type SutTypes = {
   sut: Create
@@ -17,11 +18,14 @@ const makeSut = (ref: string = faker.internet.url()): SutTypes => {
 }
 
 describe('Create', () => {
-  it('Should call DBServer with correct reference', async () => {
+  it('Should call DBServer with correct reference and paramas', async () => {
     const ref = faker.internet.url()
     const { sut, dbService } = makeSut(ref)
-    const params = {}
+    const params = mockNewEntityParams()
+
     await sut.exec(params)
+
     expect(dbService.ref).toBe(ref)
+    expect(dbService.body).toEqual(params)
   })
 })
