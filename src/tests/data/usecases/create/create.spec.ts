@@ -1,7 +1,9 @@
 import { Create } from '@/data/usecases'
 import { DBServiceSpy } from '../../mocks'
-import { faker } from '@faker-js/faker'
 import { mockNewEntityParams } from '@/tests/domain/mocks'
+import { UnauthorizedError } from '@/domain/errors'
+import { faker } from '@faker-js/faker'
+import { DBServiceCode } from '@/data/protocols'
 
 type SutTypes = {
   sut: Create
@@ -31,7 +33,15 @@ describe('Create', () => {
 
   it.todo('Should return an id of Entity if DBService returns 201')
 
-  it.todo('Should throw InvalidCredentialsError if DBService returns 401')
+  it('Should throw UnauthorizedError if DBService returns 401', async () => {
+    const { sut, dbService } = makeSut()
+    dbService.response = {
+      status: DBServiceCode.unauthorized,
+    }
+    const promise = sut.exec(mockNewEntityParams())
+
+    await expect(promise).rejects.toThrow(new UnauthorizedError())
+  })
 
   it.todo('Should throw UnexpectedError if DBService returns 400')
 
