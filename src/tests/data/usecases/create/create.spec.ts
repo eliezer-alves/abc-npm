@@ -1,7 +1,7 @@
 import { Create } from '@/data/usecases'
 import { DBServiceSpy } from '../../mocks'
 import { mockNewEntityParams } from '@/tests/domain/mocks'
-import { UnauthorizedError } from '@/domain/errors'
+import { UnauthorizedError, UnexpectedError } from '@/domain/errors'
 import { faker } from '@faker-js/faker'
 import { DBServiceCode } from '@/data/protocols'
 
@@ -23,6 +23,9 @@ describe('Create', () => {
   it('Should call DBServer with correct reference and paramas', async () => {
     const ref = faker.internet.url()
     const { sut, dbService } = makeSut(ref)
+    dbService.response = {
+      status: DBServiceCode.created,
+    }
     const params = mockNewEntityParams()
 
     await sut.exec(params)
@@ -43,7 +46,15 @@ describe('Create', () => {
     await expect(promise).rejects.toThrow(new UnauthorizedError())
   })
 
-  it.todo('Should throw UnexpectedError if DBService returns 400')
+  it('Should throw UnexpectedError if DBService returns 400', async () => {
+    const { sut, dbService } = makeSut()
+    dbService.response = {
+      status: DBServiceCode.badRequest,
+    }
+    const promise = sut.exec(mockNewEntityParams())
+
+    await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
 
   it.todo('Should throw UnexpectedError if DBService returns 500')
 
