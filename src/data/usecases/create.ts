@@ -3,6 +3,8 @@ import { CreateParams, CreateResult } from '@/domain/usecases'
 import { DBService, DBServiceCode } from '../protocols'
 
 export class Create {
+  id?: string
+
   constructor(
     private readonly ref: string,
     private readonly dbService: DBService<CreateResult>,
@@ -16,6 +18,7 @@ export class Create {
 
     switch (result.status) {
       case DBServiceCode.created:
+        this.id = result.body?.id
         return Promise.resolve()
       case DBServiceCode.unauthorized:
         throw new UnauthorizedError()
