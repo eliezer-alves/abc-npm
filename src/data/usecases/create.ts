@@ -1,5 +1,6 @@
+import { UnauthorizedError } from '@/domain/errors'
 import { CreateParams } from '@/domain/usecases'
-import { DBService } from '../protocols'
+import { DBService, DBServiceCode } from '../protocols'
 
 export class Create {
   constructor(
@@ -7,11 +8,17 @@ export class Create {
     private readonly dbService: DBService,
   ) {}
 
-  exec(params: CreateParams): Promise<void> {
-    this.dbService.create({
+  async exec(params: CreateParams): Promise<void> {
+    const result = await this.dbService.create({
       ref: this.ref,
       body: params,
     })
-    return Promise.resolve()
+
+    switch (result.status) {
+      case DBServiceCode.unauthorized:
+        throw new UnauthorizedError()
+      default:
+        return Promise.resolve()
+    }
   }
 }
