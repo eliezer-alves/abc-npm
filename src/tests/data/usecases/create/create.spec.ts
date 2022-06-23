@@ -65,17 +65,15 @@ describe('Create', () => {
     await expect(promise).rejects.toThrow(new UnexpectedError())
   })
 
-  it('Should the id attribute of Create is currect if DBService returns 201', async () => {
+  it('Should return of Create is currect if DBService returns 201', async () => {
     const { sut, dbService } = makeSut()
     const createResult = mockCreateResult()
     dbService.response = {
       status: DBServiceCode.created,
       body: createResult,
     }
-    await sut.exec(mockNewEntityParams())
+    const result = await sut.exec(mockNewEntityParams())
 
-    expect(sut.id).toEqual(createResult.id)
+    expect(result.id).toEqual(createResult.id)
   })
-
-  it.todo('Should call the callback function in method exec correctly')
 })
