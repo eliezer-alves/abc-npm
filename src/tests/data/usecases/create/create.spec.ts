@@ -26,6 +26,7 @@ describe('Create', () => {
     const { sut, dbService } = makeSut(ref)
     dbService.response = {
       status: DBServiceCode.created,
+      body: mockCreateResult(),
     }
     const params = mockNewEntityParams()
 
@@ -75,5 +76,15 @@ describe('Create', () => {
     const result = await sut.exec(mockNewEntityParams())
 
     expect(result.id).toEqual(createResult.id)
+  })
+
+  it('Should throw UnexpectedError when return of Create is empty but DBService returns 201', async () => {
+    const { sut, dbService } = makeSut()
+    dbService.response = {
+      status: DBServiceCode.created,
+    }
+    const promise = sut.exec(mockNewEntityParams())
+
+    await expect(promise).rejects.toThrow(new UnexpectedError())
   })
 })
