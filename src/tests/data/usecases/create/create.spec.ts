@@ -56,7 +56,15 @@ describe('Create', () => {
     await expect(promise).rejects.toThrow(new UnexpectedError())
   })
 
-  it.todo('Should throw UnexpectedError if DBService returns 500')
+  it('Should throw UnexpectedError if DBService returns 500', async () => {
+    const { sut, dbService } = makeSut()
+    dbService.response = {
+      status: DBServiceCode.serverError,
+    }
+    const promise = sut.exec(mockNewEntityParams())
+
+    await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
 
   it.todo('Should call the callback function in method exec correctly')
 })
