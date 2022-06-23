@@ -10,7 +10,7 @@ export class Create {
     private readonly dbService: DBService<CreateResult>,
   ) {}
 
-  async exec(params: CreateParams): Promise<void> {
+  async exec(params: CreateParams): Promise<CreateResult> {
     const result = await this.dbService.create({
       ref: this.ref,
       body: params,
@@ -18,8 +18,10 @@ export class Create {
 
     switch (result.status) {
       case DBServiceCode.created:
-        this.id = result.body?.id
-        return Promise.resolve()
+        if (!result.body) {
+          throw new UnexpectedError()
+        }
+        return result.body
       case DBServiceCode.unauthorized:
         throw new UnauthorizedError()
       default:
