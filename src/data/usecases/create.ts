@@ -1,4 +1,4 @@
-import { UnauthorizedError } from '@/domain/errors'
+import { UnauthorizedError, UnexpectedError } from '@/domain/errors'
 import { CreateParams } from '@/domain/usecases'
 import { DBService, DBServiceCode } from '../protocols'
 
@@ -15,10 +15,12 @@ export class Create {
     })
 
     switch (result.status) {
+      case DBServiceCode.created:
+        return Promise.resolve()
       case DBServiceCode.unauthorized:
         throw new UnauthorizedError()
       default:
-        return Promise.resolve()
+        throw new UnexpectedError()
     }
   }
 }
