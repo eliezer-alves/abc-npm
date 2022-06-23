@@ -29,5 +29,13 @@ describe('Create', () => {
     expect(dbService.body).toEqual(params)
   })
 
+  it.todo('Should return an id of Entity if DBService returns 201')
+
+  it.todo('Should throw InvalidCredentialsError if DBService returns 401')
+
+  it.todo('Should throw UnexpectedError if DBService returns 400')
+
+  it.todo('Should throw UnexpectedError if DBService returns 500')
+
   it.todo('Should call the callback function in method exec correctly')
 })
