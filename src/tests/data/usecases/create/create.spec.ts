@@ -1,6 +1,6 @@
 import { Create } from '@/data/usecases'
 import { DBServiceSpy } from '../../mocks'
-import { mockNewEntityParams } from '@/tests/domain/mocks'
+import { mockCreateResult, mockNewEntityParams } from '@/tests/domain/mocks'
 import { UnauthorizedError, UnexpectedError } from '@/domain/errors'
 import { DBServiceCode } from '@/data/protocols'
 import { CreateResult } from '@/domain/usecases'
@@ -35,8 +35,6 @@ describe('Create', () => {
     expect(dbService.body).toEqual(params)
   })
 
-  it.todo('Should return an id of Entity if DBService returns 201')
-
   it('Should throw UnauthorizedError if DBService returns 401', async () => {
     const { sut, dbService } = makeSut()
     dbService.response = {
@@ -65,6 +63,18 @@ describe('Create', () => {
     const promise = sut.exec(mockNewEntityParams())
 
     await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
+
+  it('Should the id attribute of Create is currect if DBService returns 201', async () => {
+    const { sut, dbService } = makeSut()
+    const createResult = mockCreateResult()
+    dbService.response = {
+      status: DBServiceCode.created,
+      body: createResult,
+    }
+    await sut.exec(mockNewEntityParams())
+
+    expect(sut.id).toEqual(createResult.id)
   })
 
   it.todo('Should call the callback function in method exec correctly')
