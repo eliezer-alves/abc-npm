@@ -1,11 +1,11 @@
 import { UnauthorizedError, UnexpectedError } from '@/domain/errors'
-import { CreateParams } from '@/domain/usecases'
+import { CreateParams, CreateResult } from '@/domain/usecases'
 import { DBService, DBServiceCode } from '../protocols'
 
 export class Create {
   constructor(
     private readonly ref: string,
-    private readonly dbService: DBService,
+    private readonly dbService: DBService<CreateResult>,
   ) {}
 
   async exec(params: CreateParams): Promise<void> {

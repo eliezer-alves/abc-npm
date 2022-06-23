@@ -2,15 +2,16 @@ import { Create } from '@/data/usecases'
 import { DBServiceSpy } from '../../mocks'
 import { mockNewEntityParams } from '@/tests/domain/mocks'
 import { UnauthorizedError, UnexpectedError } from '@/domain/errors'
-import { faker } from '@faker-js/faker'
 import { DBServiceCode } from '@/data/protocols'
+import { CreateResult } from '@/domain/usecases'
+import { faker } from '@faker-js/faker'
 
 type SutTypes = {
   sut: Create
-  dbService: DBServiceSpy
+  dbService: DBServiceSpy<CreateResult>
 }
 const makeSut = (ref: string = faker.internet.url()): SutTypes => {
-  const dbService = new DBServiceSpy()
+  const dbService = new DBServiceSpy<CreateResult>()
   const sut = new Create(ref, dbService)
 
   return {

@@ -1,6 +1,6 @@
 export type DBServiceParams = {
   ref: string
-  body: object
+  body?: any
 }
 
 export enum DBServiceCode {
@@ -11,10 +11,11 @@ export enum DBServiceCode {
   serverError = 500,
 }
 
-export type DBServiceResponse = {
+export type DBServiceResponse<T> = {
   status: DBServiceCode
+  body?: T
 }
 
-export interface DBService {
-  create(params: DBServiceParams): Promise<DBServiceResponse>
+export interface DBService<T = any> {
+  create(params: DBServiceParams): Promise<DBServiceResponse<T>>
 }
