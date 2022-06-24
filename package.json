@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc --declaration",
     "dev": "nodemon --watch \"src//\" --exec \"ts-node src/sample.ts\" -e ts",
-    "test": "jest --passWithNoTests",
+    "test": "jest --passWithNoTests --detectOpenHandles",
     "test:watch": "npm test -- --watch",
     "test:staged": "npm test -- --findRelatedTests",
     "test:ci": "npm test -- --coverage",
