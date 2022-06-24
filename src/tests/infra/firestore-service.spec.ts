@@ -1,12 +1,12 @@
-import { DBService, DBServiceParams } from '@/data/protocols'
+import { DBService, DBServiceCode, DBServiceParams } from '@/data/protocols'
 import { UnauthorizedError } from '@/domain/errors'
 import { AdapterFirestore } from '@/infra/AdapterFirestore'
 import { mockNewEntityParams } from '@/tests/domain/mocks'
-import { FirestoreErrorCode, MockFirestore } from '@/tests/infra/mocks'
+import { FirestoreErrorCode, mockAddDocResponse, MockFirestore } from '@/tests/infra/mocks'
 
-jest.mock('firebase/database')
+jest.mock('firebase/firestore')
 
-const requestCreateRoom: DBServiceParams = {
+const requestCreateNewEntity: DBServiceParams = {
   ref: 'rooms/',
   body: mockNewEntityParams(),
 }
@@ -29,31 +29,34 @@ const makeSut = (): SutTypes => {
 describe('AdapterFirestore', () => {
   test('Should call firebase with correct values', async () => {
     const { sut, mockFirestore } = makeSut()
-    const mockedPush = mockFirestore.mockPush()
+    const mockedPush = mockFirestore.mockAddDock()
 
-    await sut.create(requestCreateRoom)
+    await sut.create(requestCreateNewEntity)
 
-    expect(mockedPush.addDoc).toHaveBeenCalledWith(
-      undefined,
-      requestCreateRoom.body,
-    )
+    expect(mockedPush.addDoc).toHaveBeenCalledWith(undefined, requestCreateNewEntity.body)
   })
 
   test('Should return correct response', async () => {
     const { sut, mockFirestore } = makeSut()
-    mockFirestore.mockPush(requestCreateRoom.body)
+    const addDockResponse = mockAddDocResponse()
+    const expectedResponse = {
+      status: DBServiceCode.created,
+      body: addDockResponse,
+    }
 
-    const response = await sut.create(requestCreateRoom)
+    mockFirestore.mockAddDock(addDockResponse)
 
-    expect(requestCreateRoom.body).toEqual(response)
+    const response = await sut.create(requestCreateNewEntity)
+
+    expect(expectedResponse).toEqual(response)
   })
 
   test('Should throw UnauthorizedError if firebase returns PERMISSION_DENIED', async () => {
     const { sut, mockFirestore } = makeSut()
     mockFirestore.throwError(FirestoreErrorCode.PERMISSION_DENIED)
-    mockFirestore.mockPush()
+    mockFirestore.mockAddDock()
 
-    const promise = sut.create(requestCreateRoom)
+    const promise = sut.create(requestCreateNewEntity)
 
     await expect(promise).rejects.toThrow(new UnauthorizedError())
   })

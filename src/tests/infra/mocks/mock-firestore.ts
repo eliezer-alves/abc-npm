@@ -1,8 +1,8 @@
 import * as firestore from 'firebase/firestore'
 import { faker } from '@faker-js/faker'
 
-export const mockResponse = (): any => ({
-  key: faker.random.alphaNumeric(10),
+export const mockAddDocResponse = (): any => ({
+  id: faker.random.alphaNumeric(10),
 })
 
 export enum FirestoreErrorCode {
@@ -24,15 +24,13 @@ export class MockFirestore {
   private errorCode?: FirestoreErrorCode
   private errorMessage?: string = 'Mocked Firestore Error'
 
-  public mockPush(expectedResponse: any = mockResponse) {
+  public mockAddDock(expectedResponse: any = mockAddDocResponse()) {
     if (this.isError) {
       this.mockedFirestore.addDoc.mockClear().mockImplementation(() => {
         throw new FirestoreError(this.errorCode, this.errorMessage)
       })
     } else {
-      this.mockedFirestore.addDoc
-        .mockClear()
-        .mockResolvedValue(expectedResponse)
+      this.mockedFirestore.addDoc.mockResolvedValue(expectedResponse)
     }
 
     return this.mockedFirestore
