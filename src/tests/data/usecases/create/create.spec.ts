@@ -1,9 +1,9 @@
-import { Create } from '@/data/usecases'
+import { Create } from '../../../../data/usecases'
 import { DBServiceSpy } from '../../mocks'
-import { mockCreateResult, mockNewEntityParams } from '@/tests/domain/mocks'
-import { UnauthorizedError, UnexpectedError } from '@/domain/errors'
-import { DBServiceCode } from '@/data/protocols'
-import { CreateResult } from '@/domain/usecases'
+import { mockCreateResult, mockNewEntityParams } from '../../../domain/mocks'
+import { UnauthorizedError, UnexpectedError } from '../../../../domain/errors'
+import { DBServiceCode } from '../../../../data/protocols'
+import { CreateResult } from '../../../../domain/usecases'
 import { faker } from '@faker-js/faker'
 
 type SutTypes = {

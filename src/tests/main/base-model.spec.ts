@@ -1,5 +1,6 @@
-import { BaseModel } from '@/main/models'
 import { faker } from '@faker-js/faker'
+// import { BaseModel } from '../../main/models'
+import { BaseModel } from '../../../dist'
 
 type SutTypes = {
   sut: BaseModel

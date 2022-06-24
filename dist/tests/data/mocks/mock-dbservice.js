@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.DBServiceSpy = void 0;
-const protocols_1 = require("@/data/protocols");
+const protocols_1 = require("../../../data/protocols");
 class DBServiceSpy {
     constructor() {
         this.response = {

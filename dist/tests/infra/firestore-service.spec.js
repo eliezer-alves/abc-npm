@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const protocols_1 = require("@/data/protocols");
-const errors_1 = require("@/domain/errors");
-const AdapterFirestore_1 = require("@/infra/AdapterFirestore");
-const mocks_1 = require("@/tests/domain/mocks");
-const mocks_2 = require("@/tests/infra/mocks");
+const protocols_1 = require("../../data/protocols");
+const errors_1 = require("../../domain/errors");
+const AdapterFirestore_1 = require("../../infra/AdapterFirestore");
+const mocks_1 = require("../../tests/domain/mocks");
+const mocks_2 = require("../../tests/infra/mocks");
 jest.mock('firebase/firestore');
 const requestCreateNewEntity = {
     ref: 'rooms/',

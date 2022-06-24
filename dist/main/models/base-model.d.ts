@@ -4,5 +4,5 @@ export declare class BaseModel {
     private dbService;
     private _create;
     constructor(table: string, columns: Array<string>);
-    create(params: object): Promise<import("@/domain/usecases").CreateResult>;
+    create(params: object): Promise<import("../../domain/usecases").CreateResult>;
 }

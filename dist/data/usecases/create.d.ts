@@ -1,4 +1,4 @@
-import { CreateParams, CreateResult } from '@/domain/usecases';
+import { CreateParams, CreateResult } from '../../domain/usecases';
 import { DBService } from '../protocols';
 export declare class Create {
     private readonly ref;

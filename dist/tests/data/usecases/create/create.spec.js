@@ -9,11 +9,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const usecases_1 = require("@/data/usecases");
+const usecases_1 = require("../../../../data/usecases");
 const mocks_1 = require("../../mocks");
-const mocks_2 = require("@/tests/domain/mocks");
-const errors_1 = require("@/domain/errors");
-const protocols_1 = require("@/data/protocols");
+const mocks_2 = require("../../../domain/mocks");
+const errors_1 = require("../../../../domain/errors");
+const protocols_1 = require("../../../../data/protocols");
 const faker_1 = require("@faker-js/faker");
 const makeSut = (ref = faker_1.faker.internet.url()) => {
     const dbService = new mocks_1.DBServiceSpy();

@@ -1,4 +1,4 @@
-import { DBService, DBServiceResponse } from '@/data/protocols';
+import { DBService, DBServiceResponse } from '../data/protocols';
 declare type ExpectedCreateResponse = {
     id: string;
 };

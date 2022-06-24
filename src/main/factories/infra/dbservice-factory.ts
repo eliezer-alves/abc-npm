@@ -1,4 +1,4 @@
-import { AdapterFirestore } from '@/infra/AdapterFirestore'
+import { AdapterFirestore } from '../../../infra/AdapterFirestore'
 
 export const makeDBService = (option = 'firestore') => {
   switch (option) {

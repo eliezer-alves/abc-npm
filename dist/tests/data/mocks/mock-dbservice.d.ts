@@ -1,4 +1,4 @@
-import { DBService, DBServiceParams, DBServiceResponse } from '@/data/protocols';
+import { DBService, DBServiceParams, DBServiceResponse } from '../../../data/protocols';
 export declare class DBServiceSpy<T> implements DBService<T> {
     ref?: string;
     body?: object;

@@ -1,5 +1,5 @@
-import { DBService } from '@/data/protocols'
-import { Create } from '@/domain/usecases'
+import { DBService } from '../../data/protocols'
+import { Create } from '../../domain/usecases'
 import { makeDBService } from '../factories/infra'
 import { makeCreate } from '../factories/usecases/create'
 

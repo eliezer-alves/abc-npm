@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.makeDBService = void 0;
-const AdapterFirestore_1 = require("@/infra/AdapterFirestore");
+const AdapterFirestore_1 = require("../../../infra/AdapterFirestore");
 const makeDBService = (option = 'firestore') => {
     switch (option) {
         case 'firestore':

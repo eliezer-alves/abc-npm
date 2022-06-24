@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const models_1 = require("@/main/models");
 const faker_1 = require("@faker-js/faker");
+const models_1 = require("../../main/models");
 const makeSut = () => {
     const table = 'users-test';
     const columns = ['name', 'email'];

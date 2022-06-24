@@ -1,6 +1,6 @@
-import { db } from '@/config/firebase'
-import { DBService, DBServiceCode, DBServiceResponse } from '@/data/protocols'
-import { UnauthorizedError } from '@/domain/errors'
+import { db } from '../config/firebase'
+import { DBService, DBServiceCode, DBServiceResponse } from '../data/protocols'
+import { UnauthorizedError } from '../domain/errors'
 import { addDoc, collection } from 'firebase/firestore'
 
 type ExpectedCreateResponse = {

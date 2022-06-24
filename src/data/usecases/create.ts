@@ -1,5 +1,5 @@
-import { UnauthorizedError, UnexpectedError } from '@/domain/errors'
-import { CreateParams, CreateResult } from '@/domain/usecases'
+import { UnauthorizedError, UnexpectedError } from '../../domain/errors'
+import { CreateParams, CreateResult } from '../../domain/usecases'
 import { DBService, DBServiceCode } from '../protocols'
 
 export class Create {

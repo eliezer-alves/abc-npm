@@ -10,9 +10,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdapterFirestore = void 0;
-const firebase_1 = require("@/config/firebase");
-const protocols_1 = require("@/data/protocols");
-const errors_1 = require("@/domain/errors");
+const firebase_1 = require("../config/firebase");
+const protocols_1 = require("../data/protocols");
+const errors_1 = require("../domain/errors");
 const firestore_1 = require("firebase/firestore");
 class AdapterFirestore {
     constructor() {

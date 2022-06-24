@@ -1,1 +1,1 @@
-export * from '@/main/models'
+export { BaseModel } from './main/models'

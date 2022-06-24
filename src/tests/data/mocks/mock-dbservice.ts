@@ -3,7 +3,7 @@ import {
   DBServiceCode,
   DBServiceParams,
   DBServiceResponse,
-} from '@/data/protocols'
+} from '../../../data/protocols'
 
 export class DBServiceSpy<T> implements DBService<T> {
   ref?: string

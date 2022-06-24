@@ -1,8 +1,8 @@
-import { DBService, DBServiceCode, DBServiceParams } from '@/data/protocols'
-import { UnauthorizedError } from '@/domain/errors'
-import { AdapterFirestore } from '@/infra/AdapterFirestore'
-import { mockNewEntityParams } from '@/tests/domain/mocks'
-import { FirestoreErrorCode, mockAddDocResponse, MockFirestore } from '@/tests/infra/mocks'
+import { DBService, DBServiceCode, DBServiceParams } from '../../data/protocols'
+import { UnauthorizedError } from '../../domain/errors'
+import { AdapterFirestore } from '../../infra/AdapterFirestore'
+import { mockNewEntityParams } from '../../tests/domain/mocks'
+import { FirestoreErrorCode, mockAddDocResponse, MockFirestore } from '../../tests/infra/mocks'
 
 jest.mock('firebase/firestore')
 
