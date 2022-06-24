@@ -1,3 +1,1 @@
-export const eli = (p: string) => {
-  return p
-}
+export * from '@/main/models'
