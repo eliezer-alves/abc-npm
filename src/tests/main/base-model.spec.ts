@@ -1,4 +1,4 @@
-import { BaseModel } from '@/main/models/base-model'
+import { BaseModel } from '@/main/models'
 import { faker } from '@faker-js/faker'
 
 type SutTypes = {
