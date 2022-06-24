@@ -1,4 +1,5 @@
 export type CreateParams = object
+
 export type CreateResult = {
   id: string
 }
