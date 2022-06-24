@@ -1,7 +1,7 @@
 import { DBService } from '@/data/protocols'
-import { Create } from '@/data/usecases'
 import { Create as _Create } from '@/domain/usecases'
 import { makeDBService } from '../factories/infra'
+import { makeCreate } from '../factories/usecases/create'
 
 export class BaseModel {
   private dbService: DBService
@@ -9,10 +9,11 @@ export class BaseModel {
 
   constructor(readonly table: string, readonly columns: Array<string>) {
     this.dbService = makeDBService()
-    this._create = new Create(table, this.dbService)
+    this._create = makeCreate(table, this.dbService)
   }
 
   async create(params: object) {
-    return this._create.exec(params)
+    const response = await this._create.exec(params)
+    return response
   }
 }
