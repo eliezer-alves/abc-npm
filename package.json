@@ -1,6 +1,6 @@
 {
   "name": "@eliezeralves/chapolim",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "my first npm package",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -48,6 +48,7 @@
     "typescript": "^4.7.4"
   },
   "dependencies": {
+    "dotenv": "^16.0.1",
     "firebase": "^9.8.3"
   }
 }

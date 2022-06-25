@@ -1,11 +1,10 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 // Import the functions you need from the SDKs you need
+
 import { initializeApp } from 'firebase/app'
 import { getFirestore } from 'firebase/firestore'
 import { getAuth } from 'firebase/auth'
 import { getStorage } from 'firebase/storage'
-
-import * as dotenv from 'dotenv'
-dotenv.config()
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
