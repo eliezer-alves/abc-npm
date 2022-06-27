@@ -20,7 +20,19 @@
     "url": "git+https://github.com/eliezer-alves/abc-npm.git"
   },
   "keywords": [
-    "eliezer"
+    "adapter",
+    "adapter-firebase",
+    "adapter-firestore",
+    "chapolim",
+    "eliezer",
+    "eliezer-alves",
+    "entity",
+    "firebase",
+    "firestore",
+    "models",
+    "orm",
+    "sdk-firebase",
+    "sdk-firestore"
   ],
   "author": "Eliezer Alves <eliezer.c.alves2015@gmail.com>",
   "license": "MIT",
