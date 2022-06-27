@@ -1,6 +1,5 @@
 import { db } from '../config/firebase'
 import { DBService, DBServiceCode, DBServiceResponse } from '../data/protocols'
-import { UnauthorizedError } from '../domain/errors'
 import { addDoc, collection } from 'firebase/firestore'
 
 type ExpectedCreateResponse = {
@@ -12,14 +11,24 @@ export class AdapterFirestore implements DBService {
     status: DBServiceCode.ok,
   }
 
+  private changeResponseError(e: any): void {
+    switch (e.code) {
+      case 'PERMISSION_DENIED':
+        this.response.status = DBServiceCode.unauthorized
+        break
+      default:
+        this.response.status = DBServiceCode.badRequest
+        break
+    }
+  }
+
   async create(params: any): Promise<DBServiceResponse<ExpectedCreateResponse>> {
     let firestoreResponse
     try {
       firestoreResponse = await addDoc(collection(db, params.ref), params.body)
     } catch (e: any) {
-      if (e.code === 'PERMISSION_DENIED') {
-        throw new UnauthorizedError()
-      }
+      this.changeResponseError(e)
+      return this.response
     }
 
     if (firestoreResponse?.id) {

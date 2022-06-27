@@ -1,5 +1,4 @@
 import { DBService, DBServiceCode, DBServiceParams } from '../../data/protocols'
-import { UnauthorizedError } from '../../domain/errors'
 import { AdapterFirestore } from '../../infra/AdapterFirestore'
 import { mockNewEntityParams } from '../../tests/domain/mocks'
 import { FirestoreErrorCode, mockAddDocResponse, MockFirestore } from '../../tests/infra/mocks'
@@ -51,13 +50,13 @@ describe('AdapterFirestore', () => {
     expect(expectedResponse).toEqual(response)
   })
 
-  test('Should throw UnauthorizedError if firebase returns PERMISSION_DENIED', async () => {
+  test('Should returns 401 if firebase returns PERMISSION_DENIED', async () => {
     const { sut, mockFirestore } = makeSut()
     mockFirestore.throwError(FirestoreErrorCode.PERMISSION_DENIED)
     mockFirestore.mockAddDock()
 
-    const promise = sut.create(requestCreateNewEntity)
+    const response = await sut.create(requestCreateNewEntity)
 
-    await expect(promise).rejects.toThrow(new UnauthorizedError())
+    await expect(response.status).toBe(DBServiceCode.unauthorized)
   })
 })
