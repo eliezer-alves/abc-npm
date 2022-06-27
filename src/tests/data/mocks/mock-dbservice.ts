@@ -17,4 +17,10 @@ export class DBServiceSpy<T> implements DBService<T> {
     this.body = data.body
     return Promise.resolve(this.response)
   }
+
+  find(data: DBServiceParams): Promise<DBServiceResponse<T>> {
+    this.ref = data.ref
+    this.body = data.body
+    return Promise.resolve(this.response)
+  }
 }
