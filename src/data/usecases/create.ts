@@ -1,8 +1,8 @@
 import { UnauthorizedError, UnexpectedError } from '../../domain/errors'
-import { CreateParams, CreateResult } from '../../domain/usecases'
+import { Create as ICreate, CreateParams, CreateResult } from '../../domain/usecases'
 import { DBService, DBServiceCode } from '../protocols'
 
-export class Create {
+export class Create implements ICreate {
   id?: string
 
   constructor(private readonly ref: string, private readonly dbService: DBService<CreateResult>) {}
