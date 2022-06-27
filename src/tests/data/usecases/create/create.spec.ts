@@ -21,7 +21,7 @@ const makeSut = (ref: string = faker.internet.url()): SutTypes => {
 }
 
 describe('Create', () => {
-  it('Should call DBServer with correct reference and paramas', async () => {
+  it('Should call DBServer with correct reference and params', async () => {
     const ref = faker.internet.url()
     const { sut, dbService } = makeSut(ref)
     dbService.response = {
