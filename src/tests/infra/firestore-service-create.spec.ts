@@ -1,7 +1,7 @@
 import { DBService, DBServiceCode, DBServiceParams } from '../../data/protocols'
 import { AdapterFirestore } from '../../infra/AdapterFirestore'
-import { mockNewEntityParams } from '../../tests/domain/mocks'
-import { FirestoreErrorCode, mockAddDocResponse, MockFirestore } from '../../tests/infra/mocks'
+import { mockNewEntityParams } from '../domain/mocks'
+import { FirestoreErrorCode, mockAddDocResponse, MockFirestore } from './mocks'
 
 jest.mock('firebase/firestore')
 
@@ -25,7 +25,7 @@ const makeSut = (): SutTypes => {
   }
 }
 
-describe('AdapterFirestore', () => {
+describe('AdapterFirestoreCreate', () => {
   test('Should call firebase with correct values', async () => {
     const { sut, mockFirestore } = makeSut()
     const mockedPush = mockFirestore.mockAddDock()
