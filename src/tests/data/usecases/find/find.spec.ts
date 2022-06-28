@@ -2,7 +2,7 @@ import { Find } from '../../../../data/usecases'
 import { FindResult } from '../../../../domain/usecases'
 import { DBServiceCode } from '../../../../data/protocols'
 import { DBServiceSpy } from '../../mocks'
-// import { mockFindResult } from '../../../domain/mocks'
+import { mockFindResult } from '../../../domain/mocks'
 import { UnauthorizedError, UnexpectedError } from '../../../../domain/errors'
 import { faker } from '@faker-js/faker'
 
@@ -71,7 +71,18 @@ describe('Find', () => {
     await expect(promise).rejects.toThrow(new UnexpectedError())
   })
 
-  it.todo('Should return of Find is currect when DBService returns 200')
+  it('Should return a FindResult and params id is currect when DBService returns 200', async () => {
+    const { sut, dbService, mockedId } = makeSut()
+    const mockedResult = mockFindResult(mockedId)
+    dbService.response = {
+      status: DBServiceCode.ok,
+      body: mockedResult,
+    }
+    const result = await sut.exec(mockedId)
+
+    expect(result).toEqual(mockedResult)
+    expect(dbService.body).toEqual({ id: mockedId })
+  })
 
   it.todo('Should throw UnexpectedError when return of Find is empty but DBService returns 200')
 })
