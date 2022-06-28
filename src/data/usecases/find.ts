@@ -1,5 +1,5 @@
 import { DBService, DBServiceCode } from '../../data/protocols'
-import { UnauthorizedError } from '../../domain/errors'
+import { UnauthorizedError, UnexpectedError } from '../../domain/errors'
 import { FindResult } from '../../domain/usecases'
 
 export class Find {
@@ -16,6 +16,8 @@ export class Find {
         return result.body ?? {}
       case DBServiceCode.unauthorized:
         throw new UnauthorizedError()
+      case DBServiceCode.badRequest:
+        throw new UnexpectedError()
       default:
         return result
     }
