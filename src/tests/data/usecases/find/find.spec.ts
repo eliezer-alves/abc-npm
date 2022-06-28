@@ -3,6 +3,7 @@ import { FindResult } from '../../../../domain/usecases'
 import { DBServiceCode } from '../../../../data/protocols'
 import { DBServiceSpy } from '../../mocks'
 // import { mockFindResult } from '../../../domain/mocks'
+import { UnauthorizedError, UnexpectedError } from '../../../../domain/errors'
 import { faker } from '@faker-js/faker'
 
 type SutTypes = {
@@ -38,7 +39,16 @@ describe('Find', () => {
     expect(dbService.body).toEqual({ id: mockedId })
   })
 
-  it.todo('Should throw UnauthorizedError if DBService returns 401')
+  it('Should throw UnauthorizedError if DBService returns 401', async () => {
+    const { sut, dbService } = makeSut()
+    dbService.response = {
+      status: DBServiceCode.unauthorized,
+    }
+    const mockedId = faker.random.alphaNumeric(8)
+    const promise = sut.exec(mockedId)
+
+    await expect(promise).rejects.toThrow(new UnauthorizedError())
+  })
 
   it.todo('Should throw UnexpectedError if DBService returns 400')
 
