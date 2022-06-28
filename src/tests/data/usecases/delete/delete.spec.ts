@@ -1,21 +1,21 @@
-import { Find } from '../../../../data/usecases'
+import { Delete } from '../../../../data/usecases'
 import { FindResult } from '../../../../domain/usecases'
 import { DBServiceCode } from '../../../../data/protocols'
 import { DBServiceSpy } from '../../mocks'
-import { mockFindParam, mockFindResult } from '../../../domain/mocks'
+import { mockDeleteParam, mockDeleteResult } from '../../../domain/mocks'
 import { UnauthorizedError, UnexpectedError } from '../../../../domain/errors'
 import { faker } from '@faker-js/faker'
 
 type SutTypes = {
-  sut: Find
+  sut: Delete
   dbService: DBServiceSpy<FindResult>
   mockedId: string
 }
 
 const makeSut = (ref: string = faker.internet.url()): SutTypes => {
   const dbService = new DBServiceSpy<FindResult>()
-  const sut = new Find(ref, dbService)
-  const mockedId = mockFindParam()
+  const sut = new Delete(ref, dbService)
+  const mockedId = mockDeleteParam()
 
   return {
     sut,
@@ -25,7 +25,21 @@ const makeSut = (ref: string = faker.internet.url()): SutTypes => {
 }
 
 describe('Delete', () => {
-  it.todo('Should call DBServer with correct reference and params')
+  it('Should call DBServer with correct reference and params', async () => {
+    const ref = faker.internet.url()
+    const { sut, dbService, mockedId } = makeSut(ref)
+    const mockedResult = mockDeleteResult(mockedId)
+
+    dbService.response = {
+      status: DBServiceCode.ok,
+      body: mockedResult,
+    }
+
+    await sut.exec(mockedId)
+
+    expect(dbService.ref).toBe(ref)
+    expect(dbService.body).toEqual({ id: mockedId })
+  })
 
   it.todo('Should throw UnauthorizedError if DBService returns 401')
 
