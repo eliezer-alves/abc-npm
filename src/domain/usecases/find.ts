@@ -1,5 +1,7 @@
+export type FindParam = string
+
 export type FindResult = object
 
 export interface Find {
-  exec(id: string): Promise<FindResult>
+  exec(id: FindParam): Promise<FindResult>
 }

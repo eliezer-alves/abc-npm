@@ -1,10 +1,12 @@
 import { db } from '../config/firebase'
 import { DBService, DBServiceCode, DBServiceResponse } from '../data/protocols'
-import { addDoc, collection } from 'firebase/firestore'
+import { addDoc, collection, doc, getDoc } from 'firebase/firestore'
 
 type ExpectedCreateResponse = {
   id: string
 }
+
+type ExpectedFindResponse = object
 
 export class AdapterFirestore implements DBService {
   public response: DBServiceResponse<any> = {
@@ -42,6 +44,30 @@ export class AdapterFirestore implements DBService {
       }
     }
 
-    return Promise.resolve(this.response)
+    return this.response
+  }
+
+  async find(params: any): Promise<DBServiceResponse<ExpectedFindResponse>> {
+    let docSnap
+
+    try {
+      const docRef = doc(db, params.ref, params.body.id)
+      docSnap = await getDoc(docRef)
+    } catch (e: any) {
+      this.changeResponseError(e)
+      return this.response
+    }
+
+    if (docSnap.exists()) {
+      this.response.status = DBServiceCode.ok
+      this.response.body = {
+        ...docSnap.data(),
+        id: docSnap.id,
+      }
+    } else {
+      this.response.status = DBServiceCode.badRequest
+    }
+
+    return this.response
   }
 }
