@@ -61,7 +61,15 @@ describe('Find', () => {
     await expect(promise).rejects.toThrow(new UnexpectedError())
   })
 
-  it.todo('Should throw UnexpectedError if DBService returns 500')
+  it('Should throw UnexpectedError if DBService returns 500', async () => {
+    const { sut, dbService, mockedId } = makeSut()
+    dbService.response = {
+      status: DBServiceCode.serverError,
+    }
+    const promise = sut.exec(mockedId)
+
+    await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
 
   it.todo('Should return of Find is currect when DBService returns 200')
 
