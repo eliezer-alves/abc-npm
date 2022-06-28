@@ -71,6 +71,18 @@ export class MockFirestore {
     return this.mockedFirestore
   }
 
+  public mockDeleteDoc() {
+    if (this.isError) {
+      this.mockedFirestore.deleteDoc.mockClear().mockImplementation(() => {
+        throw new FirestoreError(this.errorCode, this.errorMessage)
+      })
+    } else {
+      this.mockedFirestore.deleteDoc.mockResolvedValue()
+    }
+
+    return this.mockedFirestore
+  }
+
   public throwError(code: FirestoreErrorCode, message?: string): void {
     this.isError = true
     this.errorCode = code
