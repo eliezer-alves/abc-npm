@@ -2,7 +2,7 @@ import { Find } from '../../../../data/usecases'
 import { FindResult } from '../../../../domain/usecases'
 import { DBServiceCode } from '../../../../data/protocols'
 import { DBServiceSpy } from '../../mocks'
-import { mockFindResult } from '../../../domain/mocks'
+import { mockFindParam, mockFindResult } from '../../../domain/mocks'
 import { UnauthorizedError, UnexpectedError } from '../../../../domain/errors'
 import { faker } from '@faker-js/faker'
 
@@ -15,7 +15,7 @@ type SutTypes = {
 const makeSut = (ref: string = faker.internet.url()): SutTypes => {
   const dbService = new DBServiceSpy<FindResult>()
   const sut = new Find(ref, dbService)
-  const mockedId = faker.random.alphaNumeric(8)
+  const mockedId = mockFindParam()
 
   return {
     sut,
