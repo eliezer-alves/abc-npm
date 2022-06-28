@@ -1,8 +1,8 @@
 import { DBService, DBServiceCode } from '../../data/protocols'
 import { UnauthorizedError, UnexpectedError } from '../../domain/errors'
-import { FindResult } from '../../domain/usecases'
+import { Find as IFind, FindResult } from '../../domain/usecases'
 
-export class Find {
+export class Find implements IFind {
   constructor(private readonly ref: string, private readonly dbService: DBService<FindResult>) {}
 
   async exec(id: string): Promise<FindResult> {
