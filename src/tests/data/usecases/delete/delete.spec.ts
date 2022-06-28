@@ -41,7 +41,15 @@ describe('Delete', () => {
     expect(dbService.body).toEqual({ id: mockedId })
   })
 
-  it.todo('Should throw UnauthorizedError if DBService returns 401')
+  it('Should throw UnauthorizedError if DBService returns 401', async () => {
+    const { sut, dbService, mockedId } = makeSut()
+    dbService.response = {
+      status: DBServiceCode.unauthorized,
+    }
+    const promise = sut.exec(mockedId)
+
+    await expect(promise).rejects.toThrow(new UnauthorizedError())
+  })
 
   it.todo('Should throw UnexpectedError if DBService returns 400')
 
