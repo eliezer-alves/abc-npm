@@ -13,10 +13,7 @@ export class Delete {
 
     switch (result.status) {
       case DBServiceCode.ok:
-        if (!result.body) {
-          throw new UnexpectedError()
-        }
-        return result.body
+        return true
       case DBServiceCode.unauthorized:
         throw new UnauthorizedError()
       default:
