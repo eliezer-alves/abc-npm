@@ -1,12 +1,23 @@
 import * as firestore from 'firebase/firestore'
 import { faker } from '@faker-js/faker'
 
+const mockId = (): string => {
+  return faker.random.alphaNumeric(10)
+}
+
 export const mockAddDocResponse = (): any => ({
-  id: faker.random.alphaNumeric(10),
+  id: mockId(),
+})
+
+export const mockGetDocResponse = (): any => ({
+  id: mockId(),
+  email: faker.internet.email(),
+  password: faker.internet.password(),
 })
 
 export enum FirestoreErrorCode {
   PERMISSION_DENIED = 'PERMISSION_DENIED',
+  ANY = 'ANY',
 }
 
 export class FirestoreError extends Error {
@@ -31,6 +42,30 @@ export class MockFirestore {
       })
     } else {
       this.mockedFirestore.addDoc.mockResolvedValue(expectedResponse)
+    }
+
+    return this.mockedFirestore
+  }
+
+  public mockGetDoc(id = mockId(), expectedResponse = mockGetDocResponse(), exists = true) {
+    if (this.isError) {
+      this.mockedFirestore.getDoc.mockClear().mockImplementation(() => {
+        throw new FirestoreError(this.errorCode, this.errorMessage)
+      })
+    } else {
+      this.mockedFirestore.getDoc.mockImplementation(
+        jest.fn().mockImplementation(() =>
+          Promise.resolve({
+            id: id,
+            data: () => {
+              return expectedResponse
+            },
+            exists: () => {
+              return exists
+            },
+          }),
+        ),
+      )
     }
 
     return this.mockedFirestore
