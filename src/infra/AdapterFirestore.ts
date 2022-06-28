@@ -1,12 +1,14 @@
 import { db } from '../config/firebase'
 import { DBService, DBServiceCode, DBServiceResponse } from '../data/protocols'
-import { addDoc, collection, doc, getDoc } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDoc } from 'firebase/firestore'
 
 type ExpectedCreateResponse = {
   id: string
 }
 
 type ExpectedFindResponse = object
+
+type ExpectedDeleteResponse = boolean
 
 export class AdapterFirestore implements DBService {
   public response: DBServiceResponse<any> = {
@@ -67,6 +69,20 @@ export class AdapterFirestore implements DBService {
     } else {
       this.response.status = DBServiceCode.badRequest
     }
+
+    return this.response
+  }
+
+  async delete(params: any): Promise<DBServiceResponse<ExpectedDeleteResponse>> {
+    try {
+      const docRef = doc(db, params.ref, params.body.id)
+      await deleteDoc(docRef)
+    } catch (e: any) {
+      this.changeResponseError(e)
+      return this.response
+    }
+
+    this.response.status = DBServiceCode.ok
 
     return this.response
   }

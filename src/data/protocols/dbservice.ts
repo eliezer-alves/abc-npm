@@ -20,4 +20,6 @@ export interface DBService<T = any> {
   create(params: DBServiceParams): Promise<DBServiceResponse<T>>
 
   find(params: DBServiceParams): Promise<DBServiceResponse<T>>
+
+  delete(params: DBServiceParams): Promise<DBServiceResponse<T>>
 }
