@@ -51,7 +51,15 @@ describe('Delete', () => {
     await expect(promise).rejects.toThrow(new UnauthorizedError())
   })
 
-  it.todo('Should throw UnexpectedError if DBService returns 400')
+  it('Should throw UnexpectedError if DBService returns 400', async () => {
+    const { sut, dbService, mockedId } = makeSut()
+    dbService.response = {
+      status: DBServiceCode.badRequest,
+    }
+    const promise = sut.exec(mockedId)
+
+    await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
 
   it.todo('Should throw UnexpectedError if DBService returns 500')
 
