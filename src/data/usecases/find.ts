@@ -16,10 +16,8 @@ export class Find {
         return result.body ?? {}
       case DBServiceCode.unauthorized:
         throw new UnauthorizedError()
-      case DBServiceCode.badRequest:
-        throw new UnexpectedError()
       default:
-        return result
+        throw new UnexpectedError()
     }
   }
 }
