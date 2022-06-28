@@ -1,5 +1,5 @@
 import { Delete } from '../../../../data/usecases'
-import { FindResult } from '../../../../domain/usecases'
+import { DeleteResult } from '../../../../domain/usecases'
 import { DBServiceCode } from '../../../../data/protocols'
 import { DBServiceSpy } from '../../mocks'
 import { mockDeleteParam } from '../../../domain/mocks'
@@ -8,12 +8,12 @@ import { faker } from '@faker-js/faker'
 
 type SutTypes = {
   sut: Delete
-  dbService: DBServiceSpy<FindResult>
+  dbService: DBServiceSpy<DeleteResult>
   mockedId: string
 }
 
 const makeSut = (ref: string = faker.internet.url()): SutTypes => {
-  const dbService = new DBServiceSpy<FindResult>()
+  const dbService = new DBServiceSpy<DeleteResult>()
   const sut = new Delete(ref, dbService)
   const mockedId = mockDeleteParam()
 
