@@ -42,4 +42,11 @@ describe('BaseModel', () => {
       ...entity.data,
     })
   })
+
+  it('Should return correct response when execute delete method before create', async () => {
+    const { sut } = makeSut()
+    const result = await sut.delete(entity.id)
+
+    expect(result)
+  })
 })
