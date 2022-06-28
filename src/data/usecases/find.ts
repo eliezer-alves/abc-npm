@@ -13,7 +13,10 @@ export class Find {
 
     switch (result.status) {
       case DBServiceCode.ok:
-        return result.body ?? {}
+        if (!result.body) {
+          throw new UnexpectedError()
+        }
+        return result.body
       case DBServiceCode.unauthorized:
         throw new UnauthorizedError()
       default:
