@@ -2,7 +2,7 @@ import { Delete } from '../../../../data/usecases'
 import { FindResult } from '../../../../domain/usecases'
 import { DBServiceCode } from '../../../../data/protocols'
 import { DBServiceSpy } from '../../mocks'
-import { mockDeleteParam, mockDeleteResult } from '../../../domain/mocks'
+import { mockDeleteParam } from '../../../domain/mocks'
 import { UnauthorizedError, UnexpectedError } from '../../../../domain/errors'
 import { faker } from '@faker-js/faker'
 
@@ -28,11 +28,9 @@ describe('Delete', () => {
   it('Should call DBServer with correct reference and params', async () => {
     const ref = faker.internet.url()
     const { sut, dbService, mockedId } = makeSut(ref)
-    const mockedResult = mockDeleteResult(mockedId)
 
     dbService.response = {
       status: DBServiceCode.ok,
-      body: mockedResult,
     }
 
     await sut.exec(mockedId)
@@ -71,7 +69,13 @@ describe('Delete', () => {
     await expect(promise).rejects.toThrow(new UnexpectedError())
   })
 
-  it.todo('Should return a FindResult and params id is currect when DBService returns 200')
+  it('Should return DeleteResult when DBService returns 200', async () => {
+    const { sut, dbService, mockedId } = makeSut()
+    dbService.response = {
+      status: DBServiceCode.ok,
+    }
+    const result = await sut.exec(mockedId)
 
-  it.todo('Should throw UnexpectedError when return of Find is empty but DBService returns 200')
+    expect(result)
+  })
 })
