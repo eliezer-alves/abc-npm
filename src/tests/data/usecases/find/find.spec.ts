@@ -28,11 +28,11 @@ describe('Find', () => {
   it('Should call DBServer with correct reference and params', async () => {
     const ref = faker.internet.url()
     const { sut, dbService, mockedId } = makeSut(ref)
-    // const mockedResult = mockFindResult(mockedId)
+    const mockedResult = mockFindResult(mockedId)
 
     dbService.response = {
       status: DBServiceCode.ok,
-      // body: mockedResult,
+      body: mockedResult,
     }
 
     await sut.exec(mockedId)
@@ -84,5 +84,14 @@ describe('Find', () => {
     expect(dbService.body).toEqual({ id: mockedId })
   })
 
-  it.todo('Should throw UnexpectedError when return of Find is empty but DBService returns 200')
+  it('Should throw UnexpectedError when return of Find is empty but DBService returns 200', async () => {
+    const { sut, dbService, mockedId } = makeSut()
+    dbService.response = {
+      status: DBServiceCode.ok,
+    }
+
+    const promise = sut.exec(mockedId)
+
+    await expect(promise).rejects.toThrow(new UnexpectedError())
+  })
 })
